@@ -24,7 +24,7 @@ namespace ARLocation.MapboxRoutes
             indicator.ArrowSprite = arrow;
             indicator.NeutralArrowDirection = DefaultOnScreenTargetIndicator.ArrowDir.Right;
 
-            pathRenderer.Settings.LineMaterial = lineMaterial;
+            // pathRenderer.Settings.LineMaterial = lineMaterial;
 
             route.Settings.SignpostPrefabs.Add(signpostPrefab);
             route.Settings.PathRenderer = pathRenderer;
