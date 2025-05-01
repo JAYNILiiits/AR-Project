@@ -16,7 +16,35 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: fbeef72c43217b54faa3acdc4e9e7b4a
-  m_SerializeEntries: []
+  m_SerializeEntries:
+  - m_GUID: 1e298b0f9c590f54f8393ba406f24e51
+    m_Address: ganesh
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: e39c1faf74e4e944dac18ec56df5d44d
+    m_Address: hanuman
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 527ffdf280b8b0e4c965cf42219fc409
+    m_Address: matsya
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 2b51a7b0297b03a4f8ab17899d9d2938
+    m_Address: parasurama
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 59262db71eaf113499b88607ebcd56ae
+    m_Address: rama
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 186666af7b31e364593281673f6efeb0
+    m_Address: vamana
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 2bd5ccaa603f8fe4a870132f334d6796
+    m_Address: vishnu
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 9c1cca7aa4203e746987f329b2fed9be, type: 2}
   m_SchemaSet:

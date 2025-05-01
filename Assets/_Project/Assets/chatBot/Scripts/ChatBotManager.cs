@@ -52,8 +52,13 @@ public class ChatBotManager : MonoBehaviour
             {
                 Debug.LogError("API error: " + request.error);
             }
+
+            // ✅ Dispose handlers manually
+            request.uploadHandler.Dispose();
+            request.downloadHandler.Dispose();
         }
     }
+
 }
 
 [System.Serializable]
