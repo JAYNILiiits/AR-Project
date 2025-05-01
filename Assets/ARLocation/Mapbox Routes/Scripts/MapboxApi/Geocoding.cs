@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace ARLocation.MapboxRoutes
 {
@@ -15,12 +16,26 @@ namespace ARLocation.MapboxRoutes
 
         public static GeocodingFeature Parse(JSONNode n)
         {
-            var result = new GeocodingFeature{};
+            var result = new GeocodingFeature();
 
-            result.text = n["text"];
-            result.place_name = n["place_name"];
-            result.relevance = n["relevance"].AsFloat;
-            result.geometry = Route.Geometry.Parse(n["geometry"]);
+            // Access the "properties" object
+            var properties = n["properties"];
+
+
+            if (properties != null)
+            {
+                result.text = properties["name"]; // Get 'name' instead of 'text'
+                string name = properties["name"];
+                string fullAddress = properties["full_address"];
+
+                result.place_name = $"{name}, {fullAddress}";
+            }
+
+            if (n.HasKey("relevance"))
+                result.relevance = n["relevance"].AsFloat;
+
+            if (n.HasKey("geometry"))
+                result.geometry = Route.Geometry.Parse(n["geometry"]);
 
             return result;
         }
@@ -43,9 +58,14 @@ namespace ARLocation.MapboxRoutes
 
         public static GeocodingResponse Parse(JSONNode n)
         {
-            var result = new GeocodingResponse {};
+            var result = new GeocodingResponse { };
 
             var features = n["features"].AsArray;
+
+            int featureCount = features.Count; // Get the count of features
+
+            Debug.Log("Number of responses: " + featureCount);
+
 
             foreach (var f in features)
             {

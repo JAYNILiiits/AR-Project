@@ -68,7 +68,9 @@ namespace ARLocation.MapboxRoutes
                             Debug.Log("[MapboxApi#QueryLocal]: Success -> " + req.downloadHandler.text);
                         }
 
+                        Debug.Log(req.downloadHandler.text);
                         queryLocalResult = GeocodingResponse.Parse(req.downloadHandler.text);
+                        Debug.Log(queryLocalResult);
                     }
                 }
             }
@@ -76,14 +78,15 @@ namespace ARLocation.MapboxRoutes
 
         string buildQueryLocalUrl(string query)
         {
-            var url = Uri.EscapeUriString($"https://api.mapbox.com/geocoding/v5/mapbox.places/{query}.json?access_token={AccessToken}");
+            var url = Uri.EscapeUriString($"https://api.mapbox.com/search/searchbox/v1/forward?q={query}&limit=5&country=in&access_token={AccessToken}");
             url += $"&language={Language.GetCode()}";
-
 
             Debug.Log(url);
 
             return url;
         }
+
+
 
         string buildQueryRouteUrl(Location from, Location to, bool alternatives)
         {

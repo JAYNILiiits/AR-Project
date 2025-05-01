@@ -2,6 +2,7 @@
   "dependencies": {
     "com.unity.2d.sprite": "1.0.0",
     "com.unity.2d.spriteshape": "7.0.7",
+    "com.unity.addressables": "1.19.19",
     "com.unity.collab-proxy": "2.0.3",
     "com.unity.feature.ar": "1.0.0",
     "com.unity.feature.development": "1.0.1",
