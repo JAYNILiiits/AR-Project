@@ -8,10 +8,10 @@ namespace ARLocation.MapboxRoutes.SampleProject
     public class MenuController : MonoBehaviour
     {
         public enum LineType { Route, NextTarget }
-        
+
 
         public Texture2D magnifyingGlassIcon;
-        public Texture2D microphoneIcon;  
+        public Texture2D microphoneIcon;
         public Texture2D backgroundTexture;
         public string MapboxToken = "your-mapbox-token";
         public GameObject ARSession;
@@ -31,6 +31,8 @@ namespace ARLocation.MapboxRoutes.SampleProject
         public Material MinimapLineMaterial;
         public float BaseLineWidth = 2;
         public float MinimapStepSize = 0.5f;
+
+        public GameObject voiceAssistantManager;
 
         private AbstractRouteRenderer currentPathRenderer => s.LineType == LineType.Route ? RoutePathRenderer : NextTargetPathRenderer;
 
@@ -151,9 +153,9 @@ namespace ARLocation.MapboxRoutes.SampleProject
             ARLocationProvider.Instance.OnEnabled.AddListener(onLocationEnabled);
             Map.OnUpdated += OnMapRedrawn;
 
-            magnifyingGlassIcon= Resources.Load<Texture2D>("search2");
-            microphoneIcon= Resources.Load<Texture2D>("mic2");
-            backgroundTexture= Resources.Load<Texture2D>("back2");
+            magnifyingGlassIcon = Resources.Load<Texture2D>("search2");
+            microphoneIcon = Resources.Load<Texture2D>("mic2");
+            backgroundTexture = Resources.Load<Texture2D>("back2");
         }
 
         private void OnMapRedrawn()
@@ -218,38 +220,38 @@ namespace ARLocation.MapboxRoutes.SampleProject
             }
 
             float h = Screen.height - MapSize;
-            
+
             // Main UI container
             GUILayout.BeginVertical(GUILayout.Height(h));
-            
+
             // --- Gray Top Bar ---
-            GUILayout.BeginHorizontal(new GUIStyle() 
-            { 
+            GUILayout.BeginHorizontal(new GUIStyle()
+            {
                 normal = { background = MakeTex(1, 1, new Color(0.3f, 0.3f, 0.3f)) }, // Gray color
                 fixedHeight = 80,
                 padding = new RectOffset(40, 0, 10, 0) // Added bottom padding to push text down
-            }, 
+            },
             GUILayout.ExpandWidth(true));
 
             GUILayout.Space(20);
-            
+
             // Search label (now aligned to LowerLeft and with top padding)
-            GUILayout.Label("SEARCH", new GUIStyle(GUI.skin.label) 
-            { 
+            GUILayout.Label("SEARCH", new GUIStyle(GUI.skin.label)
+            {
                 fontSize = 40,
                 fontStyle = FontStyle.Bold,
                 alignment = TextAnchor.LowerLeft, // Changed from MiddleLeft to LowerLeft
                 normal = { textColor = Color.white },
                 padding = new RectOffset(0, 0, 5, 0) // Added 5px top padding
-            }, 
+            },
             GUILayout.Width(200));
 
             GUILayout.FlexibleSpace();
             GUILayout.EndHorizontal();
 
             // --- Rest of the UI ---
-            GUILayout.BeginVertical(new GUIStyle() 
-            { 
+            GUILayout.BeginVertical(new GUIStyle()
+            {
                 padding = new RectOffset(20, 20, 20, 20)
             });
 
@@ -264,6 +266,15 @@ namespace ARLocation.MapboxRoutes.SampleProject
             if (GUILayout.Button(microphoneIcon, buttonStyle(), GUILayout.Width(0.1f * Screen.width), GUILayout.Height(75)))
             {
                 Debug.Log("Microphone pressed");
+                if (voiceAssistantManager != null)
+                {
+                    // Start listening for voice input
+                    var VoiceActivation = voiceAssistantManager.GetComponent<VoiceActivation>();
+                    if (VoiceActivation != null)
+                    {
+                        VoiceActivation.showAssistant(); // You must implement this method in VoiceActivation.cs
+                    }
+                }
             }
             GUILayout.EndHorizontal();
 
@@ -272,8 +283,8 @@ namespace ARLocation.MapboxRoutes.SampleProject
                 GUILayout.Label(s.ErrorMessage, errorLabelSytle());
             foreach (var r in s.Results)
             {
-                if (GUILayout.Button(r.place_name, new GUIStyle(buttonStyle()) 
-                    { alignment = TextAnchor.MiddleLeft, fontSize = 32, fixedHeight = 80 }))
+                if (GUILayout.Button(r.place_name, new GUIStyle(buttonStyle())
+                { alignment = TextAnchor.MiddleLeft, fontSize = 32, fixedHeight = 80 }))
                     StartRoute(r.geometry.coordinates[0]);
             }
 

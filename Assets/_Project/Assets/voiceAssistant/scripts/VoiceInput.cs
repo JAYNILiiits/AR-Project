@@ -45,6 +45,20 @@ public class VoiceInput : MonoBehaviour
         }
     }
 
+    public void StopListening()
+{
+    if (Microphone.IsRecording(micDevice))
+    {
+        Microphone.End(micDevice);
+        Debug.Log("Microphone recording stopped.");
+    }
+    else
+    {
+        Debug.Log("Microphone was not recording.");
+    }
+}
+
+
     [System.Serializable]
     public class ResponseText
     {
